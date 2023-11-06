@@ -57,12 +57,11 @@ def pixelShift(frequency,horizontalOffset):
 original = tiff.imread('images/test.tiff')
 data = tiff.imread('images/test.tiff')
 
-imgwidth = 1920
-imgheight = 1080
+imgwidth = original.shape[1]
+imgheight = original.shape[0]
 
-print(data.shape)
-pixelShift(8,imgwidth/2)
-colourbend(255,255,255,0,False,0)
+pixelShift(16,imgwidth/2)
+colourbend(255,255,255,0,False,0.2)
 
 
-tiff.imwrite('images/test2.tiff', data, photometric='rgb')
+tiff.imwrite('images/bliss-glitched-4.tiff', data, photometric='rgb')
