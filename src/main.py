@@ -10,30 +10,46 @@ def clampSize(n, bound):
     else: 
         return n 
 
-def colourbend(rOffset,gOffset,bOffset,aOffset, randomnessAmount):
+def colourbend(redOffset,greenOffset,blueOffset,alphaOffset, randomiseOffset, randomnessAmount):
 
-    for x in range(0, imgwidth):
+    if randomiseOffset == True:
 
-        for y in range(0, imgheight):
+        for x in range(0, imgwidth):
 
-            rRandomness = random.uniform(-randomnessAmount,randomnessAmount)
-            gRandomness = random.uniform(-randomnessAmount,randomnessAmount)
-            bRandomness = random.uniform(-randomnessAmount,randomnessAmount)
+            redRandomness = random.uniform(-randomnessAmount,randomnessAmount)
+            greenRandomness = random.uniform(-randomnessAmount,randomnessAmount)
+            blueRandomness = random.uniform(-randomnessAmount,randomnessAmount)
 
-            data[y][x][0] -= rOffset * rRandomness
-            data[y][x][1] -= gOffset * gRandomness
-            data[y][x][2] -= bOffset * bRandomness
-            data[y][x][3] -= aOffset
+            for y in range(0, imgheight):
 
-def pixelShift(frequency):
-    for i in frequency:
-        for y in range(i*imgheight/frequency,(i+1)*imgheight/frequency):
+                data[y][x][0] -= redOffset * redRandomness
+                data[y][x][1] -= greenOffset * greenRandomness
+                data[y][x][2] -= blueOffset * blueRandomness
+                data[y][x][3] -= alphaOffset
+    else:
+
+        for x in range(0, imgwidth):
+
+            for y in range(0, imgheight):
+
+                redRandomness = random.uniform(-randomnessAmount,randomnessAmount) + 1
+                greenRandomness = random.uniform(-randomnessAmount,randomnessAmount) + 1
+                blueRandomness = random.uniform(-randomnessAmount,randomnessAmount) + 1
+
+                data[y][x][0] -= redOffset * redRandomness
+                data[y][x][1] -= greenOffset * greenRandomness
+                data[y][x][2] -= blueOffset * blueRandomness
+                data[y][x][3] -= alphaOffset
+
+def pixelShift(frequency,horizontalOffset):
+    for i in range(0,frequency):
+        offset = random.randint(horizontalOffset/2,horizontalOffset)
+        for y in range(int(i*imgheight/frequency),int((i+1)*imgheight/frequency)):
             for x in range(0,imgwidth):
-                if x-500 > 0:
-                    print(x)
-                    data[y][x] = original[y][x-500]
+                if x-offset > 0:
+                    data[y][x] = original[y][x-offset]
                 else:
-                    data[y][x] = original[y][(imgwidth-1) + (x-500)]
+                    data[y][x] = original[y][(imgwidth-1) + (x-offset)]
 
             
 
@@ -45,7 +61,8 @@ imgwidth = 1920
 imgheight = 1080
 
 print(data.shape)
-pixelShift()
+pixelShift(8,imgwidth/2)
+colourbend(255,255,255,0,False,0)
 
 
 tiff.imwrite('images/test2.tiff', data, photometric='rgb')
