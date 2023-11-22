@@ -4,6 +4,7 @@ import numpy
 
 from tkinter import *
 from tkinter import filedialog
+from tkinter import ttk
 
 from PIL import ImageTk, Image
 
@@ -85,12 +86,15 @@ def save_image():
     tiff.imwrite(save_directory, data, photometric='rgb')
 
 root = Tk()
+root['background']='#222222'
 root.minsize(width="400", height="600")
 open_button = Button(root, text ="Open", command = open_image)
-process_button = Button(root, text ="Apply", command = apply_processing)
+apply_button = Button(root, text ="Apply", command = apply_processing)
 save_button = Button(root, text ="Save", command = save_image)
 
 open_button.place(x=0,y=0)
+apply_button.place(x=100,y=0)
+save_button.place(x=200, y=0)
 
 do_pixel_shift = IntVar
 pixel_shift_checkbox = Checkbutton(root, text='Pixel Shifting',variable=do_pixel_shift, onvalue=True, offvalue=False)
@@ -106,38 +110,37 @@ alt_colour_bend_checkbox.place(x=0,y=75)
 
 red_offset_slider_label = Label(root, text="Red Offset")
 red_offset_slider_label.place(x=0,y=115)
-red_offset_slider = Scale(root, from_=0, to=255, orient=HORIZONTAL)
-red_offset_slider.place(x=150, y=100)
+red_offset_slider = ttk.Scale(root, from_=0, to=255, orient=HORIZONTAL)
+red_offset_slider.place(x=150, y=115)
 
 green_offset_slider_label = Label(root, text="Green Offset")
 green_offset_slider_label.place(x=0,y=165)
-green_offset_slider = Scale(root, from_=0, to=255, orient=HORIZONTAL)
-green_offset_slider.place(x=150, y=150)
+green_offset_slider = ttk.Scale(root, from_=0, to=255, orient=HORIZONTAL)
+green_offset_slider.place(x=150, y=165)
 
 blue_offset_slider_label = Label(root, text="Blue Offset")
 blue_offset_slider_label.place(x=0,y=215)
-blue_offset_slider = Scale(root, from_=0, to=255, orient=HORIZONTAL)
-blue_offset_slider.place(x=150, y=200)
+blue_offset_slider = ttk.Scale(root, from_=0, to=255, orient=HORIZONTAL)
+blue_offset_slider.place(x=150, y=215)
 
 alpha_offset_slider_label = Label(root, text="Alpha Offset")
 alpha_offset_slider_label.place(x=0,y=265)
-alpha_offset_slider = Scale(root, from_=0, to=1, resolution = 0.01, orient=HORIZONTAL)
-alpha_offset_slider.place(x=150, y=250)
+alpha_offset_slider = ttk.Scale(root, from_=0, to=1, orient=HORIZONTAL)
+alpha_offset_slider.place(x=150, y=265)
 
 randomness_slider_label = Label(root, text="Randomness")
 randomness_slider_label.place(x=0,y=315)
-randomness_slider = Scale(root, from_=0, to=1, resolution = 0.01, orient=HORIZONTAL)
-randomness_slider.place(x=150, y=300)
+randomness_slider = ttk.Scale(root, from_=0, to=1, orient=HORIZONTAL)
+randomness_slider.place(x=150, y=315)
 
 pixel_shift_checkbox.place(x=0,y=375)
 
 green_offset_slider_label = Label(root, text="Pixel Shift Amount")
 green_offset_slider_label.place(x=0,y=415)
-green_offset_slider = Scale(root, from_=0, to=4, orient=HORIZONTAL)
-green_offset_slider.place(x=150 , y=400)
+green_offset_slider = ttk.Scale(root, from_=0, to=4, orient=HORIZONTAL)
+green_offset_slider.place(x=150 , y=415)
 
-process_button.place(x=0,y=500)
-save_button.place(x=0, y=550)
+
 
 root.mainloop()
 
