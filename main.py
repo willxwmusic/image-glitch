@@ -5,7 +5,6 @@ import numpy
 from tkinter import *
 from tkinter import filedialog
 from tkinter import ttk
-
 from PIL import ImageTk, Image
 
 def clampSize(n, bound): 
@@ -103,30 +102,22 @@ open_button = add_button("Open",open_image,0,0)
 apply_button = add_button("Apply",open_image,100,0)
 save_button = add_button("Save",open_image,200,0)
 
-do_pixel_shift = IntVar
-pixel_shift_checkbox = Checkbutton(root, text='Pixel Shifting',variable=do_pixel_shift, onvalue=True, offvalue=False)
-
 do_colour_bend = IntVar
 colour_bend_checkbox = Checkbutton(root, text='Colour Bending',variable=do_colour_bend, onvalue=True, offvalue=False)
+colour_bend_checkbox.place(x=0,y=50)
 
 alt_colour_bend = IntVar
 alt_colour_bend_checkbox = Checkbutton(root, text='Alt. Colour Bending',variable=alt_colour_bend, onvalue=True, offvalue=False)
-
-colour_bend_checkbox.place(x=0,y=50)
 alt_colour_bend_checkbox.place(x=0,y=75)
 
 red_offset_slider = add_slider('Red Offset',0,255,10,100)
-
 green_offset_slider = add_slider('Green Offset',0,255,10,150)
-
 blue_offset_slider = add_slider('Blue Offset',0,255,10,200)
-
 alpha_offset_slider = add_slider('Alpha Offset',0,1,10,250)
-
 radnomness_offset_slider = add_slider('Randomness Offset',0,1,10,300)
 
+do_pixel_shift = IntVar
+pixel_shift_checkbox = Checkbutton(root, text='Pixel Shifting',variable=do_pixel_shift, onvalue=True, offvalue=False)
 pixel_shift_checkbox.place(x=0,y=375)
 
 root.mainloop()
-
-
