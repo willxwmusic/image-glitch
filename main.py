@@ -80,10 +80,14 @@ def apply_processing():
     applied_notification = Label(root, text="Processing Applied!")
     applied_notification.place(x=150, y=500)
 
-
 def save_image():
     save_directory = filedialog.asksaveasfilename(initialdir="file_path", title="Hola", filetypes=(("TIFF","*.tiff"),("All files","*.*")))
     tiff.imwrite(save_directory, data, photometric='rgb')
+
+def add_slider(new_slider,slider_text, slider_x, slider_y):
+    new_slider_label = Label(root, text=slider_text)
+    new_slider_label.place(x=slider_x,y=slider_y)
+    new_slider.place(x=(slider_x+150), y=slider_y)
 
 root = Tk()
 root['background']='#222222'
@@ -108,25 +112,17 @@ alt_colour_bend_checkbox = Checkbutton(root, text='Alt. Colour Bending',variable
 colour_bend_checkbox.place(x=0,y=50)
 alt_colour_bend_checkbox.place(x=0,y=75)
 
-red_offset_slider_label = Label(root, text="Red Offset")
-red_offset_slider_label.place(x=0,y=115)
 red_offset_slider = ttk.Scale(root, from_=0, to=255, orient=HORIZONTAL)
-red_offset_slider.place(x=150, y=115)
+add_slider(red_offset_slider,'Red Offset',0,100)
 
-green_offset_slider_label = Label(root, text="Green Offset")
-green_offset_slider_label.place(x=0,y=165)
 green_offset_slider = ttk.Scale(root, from_=0, to=255, orient=HORIZONTAL)
-green_offset_slider.place(x=150, y=165)
+add_slider(red_offset_slider,'Green Offset',0,100)
 
-blue_offset_slider_label = Label(root, text="Blue Offset")
-blue_offset_slider_label.place(x=0,y=215)
 blue_offset_slider = ttk.Scale(root, from_=0, to=255, orient=HORIZONTAL)
-blue_offset_slider.place(x=150, y=215)
+add_slider(red_offset_slider,'Blue Offset',0,100)
 
-alpha_offset_slider_label = Label(root, text="Alpha Offset")
-alpha_offset_slider_label.place(x=0,y=265)
 alpha_offset_slider = ttk.Scale(root, from_=0, to=1, orient=HORIZONTAL)
-alpha_offset_slider.place(x=150, y=265)
+add_slider(red_offset_slider,'Alpha Offset',0,100)
 
 randomness_slider_label = Label(root, text="Randomness")
 randomness_slider_label.place(x=0,y=315)
