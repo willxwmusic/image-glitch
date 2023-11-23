@@ -49,7 +49,7 @@ def colourbend(data,redOffset,greenOffset,blueOffset,altColourBend,randomnessAmo
                 data[y][x][1] -= greenOffset * greenRandomness
                 data[y][x][2] -= blueOffset * blueRandomness
 
-def pixelShift(frequency_exponent,horizontalOffset):
+def pixelShift(data,frequency_exponent,horizontalOffset):
     frequency = 2^round(frequency_exponent)
     for i in range(0,(frequency)):
         print(horizontalOffset/2)
@@ -87,7 +87,7 @@ def apply_processing():
         data = tiff.imread(file_path)
     print(data[100][100][2])
     if do_pixel_shift.get() == 1:
-        pixelShift(pixel_shift_slider.get(),round(imgwidth/2))
+        pixelShift(data,pixel_shift_slider.get(),round(imgwidth/2))
     if do_colour_bend.get() == 1:
         colourbend(data,red_offset_slider.get(),green_offset_slider.get(),blue_offset_slider.get(),alt_colour_bend.get(),randomness_offset_slider.get())
     if file_path.endswith(".png"):
@@ -175,7 +175,7 @@ Label(filter_bar, text="Shifting", relief=RAISED).grid(row=0, column=1, padx=5, 
 do_pixel_shift = IntVar()
 pixel_shift_checkbox = Checkbutton(filter_bar, text='Pixel Shifting',variable=do_pixel_shift, onvalue=True, offvalue=False)
 pixel_shift_checkbox.grid(row=1,column=1)
-pixel_shift_slider = add_slider(filter_bar,'Shift Offset',0,1,2,1)
+pixel_shift_slider = add_slider(filter_bar,'Shift Offset',0,8,2,1)
 
 # File Menu
 root.mainloop()
