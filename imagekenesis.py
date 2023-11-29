@@ -6,6 +6,7 @@ class window(tk.Tk):
         tk.Tk.__init__(self, *args, **kwargs)
         self.wm_title("Imagekenesis")
         self.geometry('640x360')
+        self.minsize(640, 360)
         container = tk.Frame(self, height=640, width=360)
         container.pack(side="top", fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)
@@ -26,10 +27,35 @@ class Startup(tk.Frame):
         tk.Frame.__init__(self, parent)
         inner_frame = tk.Frame(self, bg='#121212')
         inner_frame.pack(fill='both', expand=True,)
-        switch_window_button = ttk.Button(
-            self, text="Return to menu", command=lambda: controller.display_frame(Processing)
+        center_frame = tk.Frame(inner_frame, bg='#202020')
+        center_frame.pack(side="left", fill="both", expand=1, padx=10, pady=10)
+
+        title = tk.Label(
+            center_frame,
+            text="Welcome to Imagekenesis!",
+            bg='#202020',
+            fg='white',
+            font=("Arial", 25) 
         )
-        switch_window_button.pack(side="bottom", fill=tk.X)
+        
+        subtitle = tk.Label(
+            center_frame,
+            text="by willxw",
+            bg='#202020',
+            fg='white'
+        )
+
+        title.pack(padx=20, pady=20)
+        subtitle.pack(padx=10, pady=10)
+
+        switch_window_button = tk.Button(
+            center_frame,
+            text="Open Image",
+            command=lambda: controller.display_frame(Processing),
+            highlightbackground='#202020'
+        )
+
+        switch_window_button.pack(padx=20, pady=20)
 
 
 
