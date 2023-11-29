@@ -3,32 +3,60 @@ from tkinter import ttk
 
 class window(tk.Tk):
     def __init__(self, *args, **kwargs):
-
         tk.Tk.__init__(self, *args, **kwargs)
-
-        # Adding a title to the window
-        self.wm_title("Test Application")
-
-        # creating a frame and assigning it to container
-        container = tk.Frame(self, height=400, width=600)
-
-        # specifying the region where the frame is packed in root
+        self.wm_title("Imagekenesis")
+        self.geometry('640x360')
+        container = tk.Frame(self, height=640, width=360)
         container.pack(side="top", fill="both", expand=True)
-
-        # configuring the location of the container using grid
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
-
-        # We will now create a dictionary of frames
         self.frames = {}
-
-        # we'll create the frames themselves later but let's add the components to the dictionary.
         for F in (Startup, Processing, Completion):
             frame = F(container, self)
-
-            # the windows class acts as the root window for the frames.
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
+        self.display_frame(Startup)
 
-        # Using a method to switch frames
-        self.show_frame(MainPage)
+    def display_frame(self, cont):
+        frame = self.frames[cont]
+        frame.tkraise()
+
+class Startup(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        inner_frame = tk.Frame(self, bg='#121212')
+        inner_frame.pack(fill='both', expand=True,)
+        switch_window_button = ttk.Button(
+            self, text="Return to menu", command=lambda: controller.display_frame(Processing)
+        )
+        switch_window_button.pack(side="bottom", fill=tk.X)
+
+
+
+class Processing(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        inner_frame = tk.Frame(self, bg='#121212')
+        inner_frame.pack(fill='both', expand=True,)
+
+        left_frame = tk.Frame(inner_frame, bg='#202020')
+        right_frame = tk.Frame(inner_frame, bg='#202020')
+
+        left_frame.pack(side="left", fill="both", expand=1, padx=10, pady=10)
+        right_frame.pack(side="right", fill="both", expand=1, padx=10, pady=10)
+
+
+class Completion(tk.Frame):
+    
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text="Completion Screen, we did it!")
+        label.pack(padx=10, pady=10)
+        switch_window_button = ttk.Button(
+            self, text="Return to menu", command=lambda: controller.show_frame(MainPage)
+        )
+        switch_window_button.pack(side="bottom", fill=tk.X)
+
+if __name__ == "__main__":
+    testObj = window()
+    testObj.mainloop()
