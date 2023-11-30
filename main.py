@@ -21,30 +21,20 @@ def clampSize(n, bound):
 
 def colourbend(data,redOffset,greenOffset,blueOffset,altColourBend,randomnessAmount):
     if altColourBend == 1:
-        print("alt method done")
-
         for x in range(0, imgwidth):
-
             redRandomness = random.uniform(-randomnessAmount,randomnessAmount)
             greenRandomness = random.uniform(-randomnessAmount,randomnessAmount)
             blueRandomness = random.uniform(-randomnessAmount,randomnessAmount)
-
             for y in range(0, imgheight):
-
                 data[y][x][0] -= redOffset * redRandomness
                 data[y][x][1] -= greenOffset * greenRandomness
                 data[y][x][2] -= blueOffset * blueRandomness
     else:
-        print("old method done")
-
         for x in range(0, imgwidth):
-
             for y in range(0, imgheight):
-
                 redRandomness = random.uniform(-randomnessAmount,randomnessAmount) + 1
                 greenRandomness = random.uniform(-randomnessAmount,randomnessAmount) + 1
                 blueRandomness = random.uniform(-randomnessAmount,randomnessAmount) + 1
-
                 data[y][x][0] -= redOffset * redRandomness
                 data[y][x][1] -= greenOffset * greenRandomness
                 data[y][x][2] -= blueOffset * blueRandomness
@@ -52,8 +42,6 @@ def colourbend(data,redOffset,greenOffset,blueOffset,altColourBend,randomnessAmo
 def pixelShift(data,frequency_exponent,horizontalOffset):
     frequency = 2^round(frequency_exponent)
     for i in range(0,(frequency)):
-        print(horizontalOffset/2)
-        print(horizontalOffset)
         offset = random.randint(round(horizontalOffset/2),horizontalOffset)
         for y in range(int(i*imgheight/frequency),int((i+1)*imgheight/frequency)):
             for x in range(0,imgwidth):
@@ -65,8 +53,6 @@ def pixelShift(data,frequency_exponent,horizontalOffset):
 def open_image():
     global file_path
     file_path = filedialog.askopenfilename(initialdir="file_path", title="Hola", filetypes=(("All files","*.*"),("png","*.png")))
-    print(file_path)
-
     global original 
     if file_path.endswith(".png"):
         original = iio.imread(file_path)
@@ -85,7 +71,6 @@ def apply_processing():
         data = iio.imread(file_path)
     else:
         data = tiff.imread(file_path)
-    print(data[100][100][2])
     if do_pixel_shift.get() == 1:
         pixelShift(data,pixel_shift_slider.get(),round(imgwidth/2))
     if do_colour_bend.get() == 1:
@@ -95,8 +80,6 @@ def apply_processing():
         edited_image=PhotoImage(file="./temp.png").subsample(subasmple_ratio)
         edited_image_display.config(image=edited_image)
         edited_image_display.image = edited_image
-
-    print(data[100][100][2])
 
 def save_image():
     save_directory = filedialog.asksaveasfilename(initialdir="file_path", title="Hola", filetypes=(("PNG","*.png"),("TIFF","*.tiff"),("All files","*.*")))
