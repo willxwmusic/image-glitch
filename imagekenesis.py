@@ -25,7 +25,7 @@ class window(tk.Tk):
 class Startup(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        inner_frame = tk.Frame(self, bg='#f21212')
+        inner_frame = tk.Frame(self, bg='#121212')
         inner_frame.pack(fill='both', expand=True,)
         center_frame = tk.Frame(inner_frame, bg='#202020')
         center_frame.pack(side="left", fill="both", expand=1, padx=10, pady=10)
