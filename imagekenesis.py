@@ -97,7 +97,7 @@ def add_slider(slider_window, slider_text, slider_min, slider_max, slider_row, s
 
 root = Tk()
 root.title("imagekenesis")
-root.geometry("1920x500")
+root.geometry("1000x500")
 root.config(bg="#222222")
 
 left_frame = Frame(root, width=400, height=400, bg='grey')
