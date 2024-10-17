@@ -46,9 +46,9 @@ def pixelShift(data,frequency_exponent,horizontalOffset):
         for y in range(int(i*imgheight/frequency),int((i+1)*imgheight/frequency)):
             for x in range(0,imgwidth):
                 if x-offset > 0:
-                    data[y][x] = original[y][x-offset]
+                    data[y][x] = data[y][x-offset]
                 else:
-                    data[y][x] = original[y][(imgwidth-1) + (x-offset)]
+                    data[y][x] = data[y][(imgwidth-1) + (x-offset)]
 
 def open_image():
     global file_path
@@ -71,10 +71,10 @@ def apply_processing():
         data = iio.imread(file_path)
     else:
         data = tiff.imread(file_path)
-    if do_pixel_shift.get() == 1:
-        pixelShift(data,pixel_shift_slider.get(),round(imgwidth/2))
     if do_colour_bend.get() == 1:
         colourbend(data,red_offset_slider.get(),green_offset_slider.get(),blue_offset_slider.get(),alt_colour_bend.get(),randomness_offset_slider.get())
+    if do_pixel_shift.get() == 1:
+        pixelShift(data,pixel_shift_slider.get(),round(imgwidth/2))
     if file_path.endswith(".png"):
         iio.imwrite("./temp.png", data, photometric='rgb')
         edited_image=PhotoImage(file="./temp.png").subsample(subasmple_ratio)
